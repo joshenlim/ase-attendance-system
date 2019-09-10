@@ -1,29 +1,11 @@
 # ase-attendance-system
 
-## Project setup
-```
-npm install
-```
+A facial identification-based attendance system that's built for academic instituitions, specifically for undergraduate laboratory sessions. The system is created with Vue and Electron to be a Desktop application and all facial recognition functionalities are implemented with [face-api.js](https://github.com/justadudewhohacks/face-api.js).
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Project setup
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Install required modules: `npm install`
+Run Electron app in dev environment: `npm run electron:serve`
+Build Electron package (Mac/Windows): `npm run electron:build`
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Built package can be found in the `dist_electron` folder

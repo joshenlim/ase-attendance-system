@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Worker</title>
+  <style>
+    /* video {
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+    } */
+    .container {
+      position: relative;
+      width: 400px;
+      height: 500px;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <video id="cam" autoplay muted playsinline></video>
+    <canvas id="overlay" width=400 height=500></canvas>
+  </div>
+</body>
+</html>
