@@ -1,9 +1,12 @@
 import * as faceapi from 'face-api.js';
+import { onDetect, notifyRenderer } from './workerMessager';
+
+const minConfidenceFace = 0.5;
+const faceapiOptions = new faceapi.SsdMobilenetv1Options({ minConfidenceFace });
 
 export const loadNet = async() => {
   const detectionNet = faceapi.nets.ssdMobilenetv1;
   await detectionNet.load('/data/weights');
-  await faceapi.loadFaceExpressionModel('/data/weights');
   await faceapi.loadFaceLandmarkModel('/data/weights');
   await faceapi.loadFaceRecognitionModel('/data/weights');
   return detectionNet;
@@ -49,3 +52,40 @@ let loadTrain = async() => {
   console.log("Loaded training images")
 }
 */
+
+export const detectFace = async(frame, isReady=false) => {
+  /**
+   * Will have to do up loadFaceMatcher to return a trainDescriptors array
+   * then pass that array into detectFace as an argument
+   */
+  // START Prep train data
+  const refImg = await faceapi.fetchImage(require(`../assets/test_image.jpg`));
+  const reference = await faceapi
+    .detectSingleFace(refImg, faceapiOptions)
+    .withFaceLandmarks()
+    .withFaceDescriptor()
+
+  const faceMatcher = new faceapi.FaceMatcher(reference)
+  // END Prep train data
+
+  const overlay = document.getElementById('overlay');
+
+  const result = await faceapi
+    .detectSingleFace(frame, faceapiOptions)
+    .withFaceLandmarks()
+    .withFaceDescriptor()
+  
+  const context = overlay.getContext('2d');
+  context.clearRect(0, 0, overlay.width, overlay.height);
+
+  if (result) {
+    const bestMatch = faceMatcher.findBestMatch(result.descriptor)
+    console.log(bestMatch.toString())
+    onDetect(bestMatch.toString())
+    faceapi.draw.drawDetections(overlay, result.detection)
+  }
+
+  if (!isReady) notifyRenderer('detect', { status: 'ready' })
+
+  detectFace(frame, true);
+}
