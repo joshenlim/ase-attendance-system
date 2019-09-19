@@ -80,12 +80,11 @@ export const detectFace = async(frame, isReady=false) => {
 
   if (result) {
     const bestMatch = faceMatcher.findBestMatch(result.descriptor)
-    console.log(bestMatch.toString())
     onDetect(bestMatch.toString())
     faceapi.draw.drawDetections(overlay, result.detection)
   }
 
-  if (!isReady) notifyRenderer('detect', { status: 'ready' })
+  if (!isReady) notifyRenderer('status', { status: 'ready' })
 
   detectFace(frame, true);
 }
