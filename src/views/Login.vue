@@ -1,6 +1,20 @@
 <template>
   <div class="home">
-    <LoginCard />
+    <div class="card">
+      <p class="header">Lab Attendance Registration</p>
+      <div class="field-input">
+        <p>USERNAME</p>
+        <input type="text" />
+      </div>
+      <div class="field-input">
+        <p>PASSWORD</p>
+        <input type="password" />
+      </div>
+      <div class="button button-primary" v-on:click="login" v-bind:class="{ showSpinner: loggingIn }">
+        <span v-if="!loggingIn">Login</span>
+        <span v-else class="loader"></span>
+      </div>
+    </div>
   </div>
 </template>
 
