@@ -19,13 +19,7 @@ export default {
 </script>
 
 <style lang="scss">
-
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap');
-
-@font-face {
-    font-family: 'Greycliff';
-    src: url('https://s3-ap-southeast-1.amazonaws.com/common.assets/fonts/GreycliffCF-DemiBold.ttf');
-}
+@import '@/styles/_type';
 
 body {
   margin: 0;

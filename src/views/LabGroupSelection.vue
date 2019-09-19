@@ -4,3 +4,6 @@
     <router-link to="/">Back</router-link>
   </div>
 </template>
+
+<script src="../scripts/LabGroupSelection.js"></script>
+<style scoped src="../styles/LabGroupSelection.scss" lang="scss"></style>

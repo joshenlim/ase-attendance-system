@@ -31,7 +31,7 @@ export default {
         return new Promise(resolve => setTimeout(resolve, ms));
       }
       this.loggingIn = !this.loggingIn
-      await sleep(1000)
+      await sleep(1500)
       this.$router.push('lab-select') 
     }
   }
@@ -39,9 +39,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/card';
-@import '@/styles/fields';
-@import '@/styles/button';
+@import '@/styles/_card';
+@import '@/styles/_fields';
+@import '@/styles/_button';
 
 .card {
   text-align: left;
