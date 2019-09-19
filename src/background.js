@@ -130,7 +130,7 @@ app.on('ready', async () => {
 
   createWindow()
   // Disable this while working on frontend only
-  createWorker('worker', 'worker.html');
+  // createWorker('worker', 'worker.html');
 
   ipcMain.on('window-message-from-worker', (event, arg) => {
     console.log("Message from worker", arg)

@@ -22,6 +22,11 @@ export default {
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap');
 
+@font-face {
+    font-family: 'Greycliff';
+    src: url('https://s3-ap-southeast-1.amazonaws.com/common.assets/fonts/GreycliffCF-DemiBold.ttf');
+}
+
 body {
   margin: 0;
   height: 100vh;

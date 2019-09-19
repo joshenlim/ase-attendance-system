@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <h1>Lab Attendance Registration System</h1>
     <LoginCard />
   </div>
 </template>

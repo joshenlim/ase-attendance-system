@@ -2,8 +2,12 @@
   background-color: #2B70F6;
   padding: 9px 12px;
   color: #FFFFFF;
-  border-radius: 5px;
+  border-radius: 50px;
   cursor: pointer;
   text-align: center;
   font-size: 1em;
+  a {
+    color: #FFFFFF;
+    text-decoration: none;
+  }
 }
