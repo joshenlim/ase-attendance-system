@@ -2,7 +2,9 @@
 
 A facial identification-based attendance system that's built for academic instituitions, specifically for undergraduate laboratory sessions. The system is created with Vue and Electron to be a Desktop application and all facial recognition functionalities are implemented with [face-api.js](https://github.com/justadudewhohacks/face-api.js).
 
-### Project setup
+## Project setup
+
+For development, you will need the [backend API server](https://github.com/joshenlim/ase-attendance-server) as well.
 
 Install required modules: `npm install`
 
