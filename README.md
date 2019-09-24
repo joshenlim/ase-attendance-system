@@ -5,8 +5,9 @@ A facial identification-based attendance system that's built for academic instit
 ### Project setup
 
 Install required modules: `npm install`
-Export required env vars: `source .env`
+
 Run Electron app in dev environment: `npm run electron:serve`
+
 Build Electron package (Mac/Windows): `npm run electron:build`
 
 Built package can be found in the `dist_electron` folder
