@@ -1,11 +1,31 @@
-.button-primary {
-  background-color: #2B70F6;
-  padding: 9px 12px;
-  color: #FFFFFF;
-  border-radius: 50px;
+.button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
   cursor: pointer;
+  padding: 9px 12px;
+  border-radius: 50px;
   text-align: center;
   font-size: 1em;
+  height: 25px;
+  border: 1px solid #2B70F6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+  a {
+    color: #2B70F6;
+    text-decoration: none;
+  }
+}
+
+.button-primary {
+  background-color: #2B70F6;
+  color: #FFFFFF;
+  border: 1px solid transparent;
   a {
     color: #FFFFFF;
     text-decoration: none;

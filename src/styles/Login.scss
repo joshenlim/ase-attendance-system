@@ -1,6 +1,7 @@
 @import '@/styles/_card';
 @import '@/styles/_fields';
 @import '@/styles/_button';
+@import '@/styles/_loader';
 
 h1 {
   margin-top: -50px;
@@ -20,32 +21,12 @@ h1 {
   margin: 0 auto;
   margin-top: 25px;
   width: 100px;
-  height: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.2s ease;
-  padding: 9px;
-  border: 1px solid transparent;
-}
-
-.loader {
-  border: 3px solid #F3F3F3;
-  border-top: 3px solid #2B70F6;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
 }
 
 .showSpinner {
   width: 25px;
   height: 25px;
+  padding: 9px;
   background-color: #FFFFFF;
   border: 1px solid rgba(0,0,0,0.2);
 }
