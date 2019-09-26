@@ -4,7 +4,13 @@ export default {
   data() {
     return {
       code: this.$route.query.code,
-      group: this.$route.query.group
+      group: this.$route.query.group,
+      venue: "",
+      course: "",
+      day: "",
+      startTime: "",
+      endTime: "",
+      studentList: [],
     }
   },
   methods: {
@@ -32,6 +38,18 @@ export default {
     }
   },
   mounted() {
+    // Retrieve Lab Group Details
+    this.$http.get(this.$apiUrl + '/groups?name=' + this.group)
+      .then((result) => {
+        this.course = result.data.name
+        this.venue = result.data.venue
+        this.day = result.data.day
+        this.startTime = result.data.start_time
+        this.endTime = result.data.end_time
+        this.studentList = result.data.students
+      })
+
+
     this.initCamera(400, 500)
     .then(video => {
       console.log('Camera was initialized', video);

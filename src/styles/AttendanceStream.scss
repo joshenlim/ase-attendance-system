@@ -6,6 +6,7 @@
   opacity: 0.3;
   position: relative;
   top: 10px;
+  left: 15px;
   font-weight: 300;
   transition: opacity 0.2s ease;
   &:hover {
@@ -19,26 +20,34 @@
 
 .header {
   margin-top: 0;
+  margin-bottom: 30px;
   font-size: 1.5em;
   text-align: left;
 }
 
 .card {
   padding: 15px;
+  margin-bottom: 20px;
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 }
 
 .course-detail-line {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 8px;
   .title {
     margin: 0;
     font-weight: 300;
-    width: 70px;
+    width: 20%;
+    margin-right: 10px;
     text-align: left;
   }
   .description {
     margin: 0;
+    text-align: left;
+    width: 80%;
   }
   &:last-of-type {
     margin-bottom: 0;
@@ -49,6 +58,15 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .fix-card-width {
+    width: calc(100% - 30px);
+  }
 }
 
 .fix-card-width {
@@ -72,5 +90,26 @@
     position: absolute;
     top: 0;
     left: 0;
+  }
+}
+
+.student-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  font-weight: 300;
+  .student {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0px;
+    .name {
+      display: flex;
+      align-items: center;
+      input[type=checkbox] {
+        margin-right: 10px;
+      }
+    }
   }
 }

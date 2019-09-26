@@ -6,11 +6,19 @@
       <div class="card fix-card-width">
         <div class="course-detail-line">
           <p class="title">Course:</p>
-          <p class="description">{{ code }}</p>
+          <p class="description">{{ code }} - {{ course }}</p>
         </div>
         <div class="course-detail-line">
           <p class="title">Group:</p>
           <p class="description">{{ group }}</p>
+        </div>
+        <div class="course-detail-line">
+          <p class="title">Venue:</p>
+          <p class="description">{{ venue }}</p>
+        </div>
+        <div class="course-detail-line">
+          <p class="title">Session:</p>
+          <p class="description">{{ day }}; {{ startTime }} - {{ endTime }}</p>
         </div>
       </div>
 
@@ -19,8 +27,23 @@
         <canvas class="video-overlay" ref="overlay" width=400 height=500></canvas>
       </div>
 
-      <div class="card fix-card-width">
+      <div class="column">
+        <div class="card fix-card-width">
+          <p class="title">Registered Student</p>
+        </div>
 
+        <div class="card fix-card-width">
+          <p class="title">Participants ({{ studentList.length }})</p>
+          <ul class="student-list">
+            <li class="student" v-for="student in studentList" v-bind:key="student.seat">
+              <div class="name">
+                <input type="checkbox" />
+                <span>{{ student.name }}</span>
+              </div>
+              <div>{{ student.seat }}</div>
+            </li>
+          </ul>
+        </div>
       </div>
 
     </div>
