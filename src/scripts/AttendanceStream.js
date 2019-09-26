@@ -3,7 +3,8 @@ export default {
   components: { },
   data() {
     return {
-      title: 'Lab Attendance Registration',
+      code: this.$route.query.code,
+      group: this.$route.query.group
     }
   },
   methods: {
@@ -36,7 +37,6 @@ export default {
       console.log('Camera was initialized', video);
     });
 
-    // listen to messages
     this.$electron.ipcRenderer.on('message-from-worker', (event, data) => {
       console.log("Message from worker received:", data)
 

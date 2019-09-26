@@ -1,86 +1,76 @@
-.page-play {
-  background-color: #FFFFFF;
-  border: 1px solid #333;
+@import '@/styles/_card';
 
-  h1 {
-    margin: 24px 0;
-    font-size: 32px;
-    font-weight: 500;
-    text-align: center;
+.back-btn {
+  text-decoration: none;
+  color: #333333;
+  opacity: 0.3;
+  position: relative;
+  top: 10px;
+  font-weight: 300;
+  transition: opacity 0.2s ease;
+  &:hover {
+    opacity: 1.0;
+  }
+}
+
+.attendance {
+  width: 85%;
+}
+
+.header {
+  margin-top: 0;
+  font-size: 1.5em;
+  text-align: left;
+}
+
+.card {
+  padding: 15px;
+}
+
+.course-detail-line {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  .title {
+    margin: 0;
+    font-weight: 300;
+    width: 70px;
+    text-align: left;
+  }
+  .description {
+    margin: 0;
+  }
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.fix-card-width {
+  width: 100%;
+}
+
+.cam-container {
+  width: 400px;
+  margin: 0px 20px;
+  position: relative;
+
+  .video-stream {
+    width: inherit;
+    height: 500px;
+    border-radius: 10px;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
   }
 
-  .cam-container {
-    width: 400px;
-    margin: auto;
-    position: relative;
-
-    .video-stream {
-      width: inherit;
-      height: 500px;
-      border-radius: 10px;
-      -webkit-transform: scaleX(-1);
-      transform: scaleX(-1);
-    }
-
-    .video-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-  }
-
-  .overlay-countdown {
-    display: none;
-    .countdown {
-      text-align: center;
-      margin-top: 120px;
-      font-size: 340px;
-      .number {
-        font-weight: bold;
-      }
-    }
-  }
-
-  .overlay-finished {
-    display: none;
-    background-color: rgba(0, 0, 0, 0.9);
-    text-align: center;
-
-    .gameover {
-      margin-top: 120px;
-      font-size: 64px;
-    }
-
-    .result {
-      color: deeppink;
-      margin-top: 20px;
-      font-size: 32px;
-    }
-
-    .buttons {
-      text-align: center;
-      margin-top: 60px;
-      .btn {
-        border: 8px dashed pink;
-        background-color: white;
-        font-size: 48px;
-        border-radius: 10px;
-        color: #ff0000;
-        padding: 10px;
-        width: 500px;
-      }
-    }
-  }
-
-  .overlay-laugh {
-    display: none;
-    .smiley {
-      margin-top: 100px;
-      text-align: center;
-    }
-  }
-
-  .overlay-visible {
-    display: block;
+  .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 }

@@ -7,9 +7,9 @@ export default {
       courseCodeSearch: "",
       courseFilterResults: [],
       selectedCourse: {},
-      selectedCourseIndex: "",
+      selectedCourseGroup: "",
       showSearch: true, 
-      showIndexList: false,
+      showGroupList: false,
       launching: false
     }
   },
@@ -18,8 +18,8 @@ export default {
       this.showSearch = true
       this.searchCourseCode()
     },
-    toggleIndexList: function() {
-      this.showIndexList = true
+    toggleGroupList: function() {
+      this.showGroupList = !this.showGroupList
     },
     searchCourseCode: function() {
       this.$http.get(this.$apiUrl + '/courses?search=' + this.courseCodeSearch)
@@ -30,12 +30,17 @@ export default {
     selectCourse: function(course) {
       this.selectedCourse = { ...course }
       this.courseCodeSearch = course.code
-      this.selectedCourseIndex = course.index[0]
       this.showSearch = false
+      
+      if (course.groups.length > 0) {
+        this.selectedCourseGroup = course.groups[0]
+      } else {
+        this.selectedCourseGroup = "No Lab Groups found"
+      }
     },
-    selectIndex: function(index) {
-      this.selectedCourseIndex = index
-      this.showIndexList = false
+    selectGroup: function(group) {
+      this.selectedCourseGroup = group
+      this.showGroupList = false
     },
     launchAttendance: async function() {
       function sleep(ms) {
@@ -43,8 +48,7 @@ export default {
       }
       this.launching = !this.launching
       await sleep(1500)
-      console.log('yo')
-      // this.$router.push('lab-select') 
+      this.$router.push(`attendance?code=${this.selectedCourse.code}&group=${this.selectedCourseGroup}`) 
     }
   }
 }

@@ -14,11 +14,11 @@
       </div>
 
       <div class="field-input">
-        <p>COURSE INDEX</p>
-        <input v-model="selectedCourseIndex" @click="toggleIndexList()" class="prevent-highlight" type="text" readonly />
-        <ul class="search-list" v-bind:class="{ showSearchList: showIndexList }">
-          <li v-for="index in selectedCourse.index" v-bind:key="index" v-on:click="selectIndex(index)">
-            {{ index }}
+        <p>LAB GROUP</p>
+        <input v-model="selectedCourseGroup" @click="toggleGroupList()" class="dropdown" type="text" readonly />
+        <ul class="search-list" v-bind:class="{ showSearchList: showGroupList }">
+          <li v-for="group in selectedCourse.groups" v-bind:key="group" v-on:click="selectGroup(group)">
+            {{ group }}
           </li>
         </ul>
       </div>
