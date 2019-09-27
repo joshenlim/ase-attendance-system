@@ -1,3 +1,5 @@
+import backgroundUrl from '../assets/avatar.jpg'
+
 export default {
   name: 'attendance-stream',
   components: { },
@@ -5,12 +7,15 @@ export default {
     return {
       code: this.$route.query.code,
       group: this.$route.query.group,
+      session: this.$route.query.session,
       venue: "",
       course: "",
       day: "",
       startTime: "",
       endTime: "",
       studentList: [],
+
+      avatarUrl: backgroundUrl,
     }
   },
   methods: {

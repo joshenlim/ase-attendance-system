@@ -15,7 +15,7 @@
 }
 
 .attendance {
-  width: 85%;
+  width: 90%;
 }
 
 .header {
@@ -31,6 +31,11 @@
   &:last-of-type {
     margin-bottom: 0;
   }
+}
+
+.participants {
+  max-height: 300px;
+  overflow-y: scroll;
 }
 
 .course-detail-line {
@@ -66,6 +71,32 @@
   width: 100%;
   .fix-card-width {
     width: calc(100% - 30px);
+  }
+  .detected-student{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .thumbnail {
+      width: 60px;
+      height: 80px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      margin-right: 15px;
+    }
+    .student-details {
+      .no-student {
+        font-weight: 300;
+        opacity: 0.3;
+      }
+      p {
+        margin: 0;
+        margin-bottom: 10px;
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+    }
   }
 }
 

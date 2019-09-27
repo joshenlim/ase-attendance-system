@@ -8,8 +8,10 @@ export default {
       courseFilterResults: [],
       selectedCourse: {},
       selectedCourseGroup: "",
+      selectedCourseSession: "",
       showSearch: true, 
       showGroupList: false,
+      showSessionList: false,
       launching: false
     }
   },
@@ -20,6 +22,9 @@ export default {
     },
     toggleGroupList: function() {
       this.showGroupList = !this.showGroupList
+    },
+    toggleSessionList: function() {
+      this.showSessionList = !this.showSessionList
     },
     searchCourseCode: function() {
       this.$http.get(this.$apiUrl + '/courses?search=' + this.courseCodeSearch)
@@ -37,10 +42,20 @@ export default {
       } else {
         this.selectedCourseGroup = "No Lab Groups found"
       }
+
+      if (course.sessions.length > 0) {
+        this.selectedCourseSession = course.sessions[0]
+      } else {
+        this.selectedCourseSession = "No Lab Sessions found"
+      }
     },
     selectGroup: function(group) {
       this.selectedCourseGroup = group
       this.showGroupList = false
+    },
+    selectSession: function(session) {
+      this.selectedCourseSession = session
+      this.showSessionList = false
     },
     launchAttendance: async function() {
       function sleep(ms) {
@@ -48,7 +63,7 @@ export default {
       }
       this.launching = !this.launching
       await sleep(1500)
-      this.$router.push(`attendance?code=${this.selectedCourse.code}&group=${this.selectedCourseGroup}`) 
+      this.$router.push(`attendance?code=${this.selectedCourse.code}&group=${this.selectedCourseGroup}&session=${this.selectedCourseSession}`) 
     }
   }
 }

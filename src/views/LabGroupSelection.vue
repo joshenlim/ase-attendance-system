@@ -23,6 +23,16 @@
         </ul>
       </div>
 
+      <div class="field-input">
+        <p>LAB SESSION</p>
+        <input v-model="selectedCourseSession" @click="toggleSessionList()" class="dropdown" type="text" readonly />
+        <ul class="search-list" v-bind:class="{ showSearchList: showSessionList }">
+          <li v-for="session in selectedCourse.sessions" v-bind:key="session" v-on:click="selectSession(session)">
+            {{ session }}
+          </li>
+        </ul>
+      </div>
+
       <div class="button-group">
         <div class="button" v-bind:class="{ hideButton: launching }">
           <router-link to="/">Back</router-link>
