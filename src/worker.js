@@ -40,7 +40,7 @@ loadNet()
     console.info('INFO: Loaded network models succesfully');
     return initCamera(400, 500);
   })
-  .then(video => {
+  .then(async(video) => {
     console.info('INFO: Initialized camera successfully')
     console.info('INFO: Beginning Face Detection process')
     detectFace(video);

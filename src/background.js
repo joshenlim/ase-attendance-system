@@ -133,6 +133,7 @@ app.on('ready', async () => {
   // createWorker('worker', 'worker.html');
 
   ipcMain.on('window-message-from-worker', (event, arg) => {
+    // Joshen: Comment this out at the end to clean server logs
     console.log("Message from worker", arg)
     sendWindowMessage(win, 'message-from-worker', arg);
   });

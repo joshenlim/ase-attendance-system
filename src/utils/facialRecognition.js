@@ -12,61 +12,26 @@ export const loadNet = async() => {
   return detectionNet;
 }
 
-export const loadFaceMatcher = async() => {
-  /**
-  const labeledDescriptors = [
-    new faceapi.LabeledFaceDescriptors(
-      'obama',
-      [descriptorObama1, descriptorObama2]
-    ),
-    new faceapi.LabeledFaceDescriptors(
-      'trump',
-      [descriptorTrump]
-    )
-  ]
-  const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors)
-  */
-}
-
-/**
-let loadTrain = async() => {
-  const labels = ['test_image']
-  trainDescriptors = await Promise.all(
+export const detectFace = async(frame, isReady=false) => {
+  // Joshen: To re label everything into matric numbers
+  const labels = ['Joshen', 'James', 'Salleh']
+  const labeledFaceDescriptors = await Promise.all(
     labels.map(async label => {
-      const imgUrl = require(`./assets/${label}.jpg`)
-      const img = await faceapi.fetchImage(imgUrl)
-
-      const fullFaceDescription = await faceapi
-        .detectSingleFace(img)
+      const img = await faceapi.fetchImage(require(`../assets/${label.toLowerCase()}.jpg`))
+      const faceDescription = await faceapi
+        .detectSingleFace(img, faceapiOptions)
         .withFaceLandmarks()
         .withFaceDescriptor()
-      
-      if (!fullFaceDescription) {
-        throw new Error(`no faces detected for ${label}`)
+
+      if (!faceDescription) {
+        console.log(`ERROR: No face detected for ${label}`)
       }
-      
-      const faceDescriptors = [fullFaceDescription.descriptor]
+
+      const faceDescriptors = [faceDescription.descriptor]
       return new faceapi.LabeledFaceDescriptors(label, faceDescriptors)
     })
   )
-  console.log("Loaded training images")
-}
-*/
-
-export const detectFace = async(frame, isReady=false) => {
-  /**
-   * Will have to do up loadFaceMatcher to return a trainDescriptors array
-   * then pass that array into detectFace as an argument
-   */
-  // START Prep train data
-  const refImg = await faceapi.fetchImage(require(`../assets/test_image.jpg`));
-  const reference = await faceapi
-    .detectSingleFace(refImg, faceapiOptions)
-    .withFaceLandmarks()
-    .withFaceDescriptor()
-
-  const faceMatcher = new faceapi.FaceMatcher(reference)
-  // END Prep train data
+  const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors)
 
   const overlay = document.getElementById('overlay');
 
@@ -80,7 +45,7 @@ export const detectFace = async(frame, isReady=false) => {
 
   if (result) {
     const bestMatch = faceMatcher.findBestMatch(result.descriptor)
-    onDetect(bestMatch.toString())
+    onDetect(bestMatch._label)
     faceapi.draw.drawDetections(overlay, result.detection)
   }
 
