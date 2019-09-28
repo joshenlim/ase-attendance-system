@@ -34,8 +34,8 @@
       </div>
 
       <div class="button-group">
-        <div class="button" v-bind:class="{ hideButton: launching }">
-          <router-link to="/">Back</router-link>
+        <div class="button" v-on:click="logout" v-bind:class="{ hideButton: launching }">
+          <a>Back</a>
         </div>
         <div class="button button-primary" v-on:click="launchAttendance" v-bind:class="{ showSpinner: launching }">
           <span v-if="!launching">Launch</span>

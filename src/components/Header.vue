@@ -10,13 +10,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'Header',
-  props: {
-    authenticated: {
-      default: false
-    }
-  }
+  computed: mapState(['authenticated'])
 }
 </script>
 

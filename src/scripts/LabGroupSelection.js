@@ -64,6 +64,10 @@ export default {
       this.launching = !this.launching
       await sleep(1500)
       this.$router.push(`attendance?code=${this.selectedCourse.code}&group=${this.selectedCourseGroup}&session=${this.selectedCourseSession}`) 
+    },
+    logout: function() {
+      this.$store.commit('updateAuthentication', false)
+      this.$router.push('/') 
     }
   }
 }
