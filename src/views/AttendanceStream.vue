@@ -58,7 +58,7 @@
 
     </div>
     
-    <router-link class="back-btn" to="/lab-select">Back</router-link>
+    <a class="back-btn" v-on:click="selectLabGroup">Back</a>
 
   </div>
 </template>

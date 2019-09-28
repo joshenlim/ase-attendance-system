@@ -40,6 +40,10 @@ export default {
           resolve(cam);
         };
       });
+    },
+    selectLabGroup: function() {
+      this.$store.commit('updateAttendance', false)
+      this.$router.push('/lab-select')
     }
   },
   mounted() {

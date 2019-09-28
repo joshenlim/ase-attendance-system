@@ -13,14 +13,19 @@ Vue.config.productionTip = false
 
 const store = new Vuex.Store({
   state: {
-    authenticated: false
+    authenticated: false,
+    attendanceTaking: false,
   },
   getters: {
-    authenticated: state => state.authenticated
+    authenticated: state => state.authenticated,
+    attendanceTaking: state => state.attendanceTaking,
   },
   mutations: {
     updateAuthentication(state, value) {
       state.authenticated = value
+    },
+    updateAttendance(state, value) {
+      state.attendanceTaking = value
     }
   }
 })

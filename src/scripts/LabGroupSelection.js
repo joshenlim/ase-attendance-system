@@ -63,6 +63,7 @@ export default {
       }
       this.launching = !this.launching
       await sleep(1500)
+      this.$store.commit('updateAttendance', true)
       this.$router.push(`attendance?code=${this.selectedCourse.code}&group=${this.selectedCourseGroup}&session=${this.selectedCourseSession}`) 
     },
     logout: function() {
