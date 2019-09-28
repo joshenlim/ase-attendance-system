@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <div class="card">
+    <div class="card" v-bind:class="{ fadeInCard: showCard }">
       <p class="header">Select Course Details</p>
 
       <div class="field-input">

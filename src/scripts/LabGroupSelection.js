@@ -1,9 +1,12 @@
+import { sleep } from '../utils/misc'
+
 export default {
   name: 'lab-group-selection',
   prop: {},
   components: {},
   data() {
     return {
+      showCard: false,
       courseCodeSearch: "",
       courseFilterResults: [],
       selectedCourse: {},
@@ -58,20 +61,23 @@ export default {
       this.showSessionList = false
     },
     launchAttendance: async function() {
-      function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-      }
       this.launching = !this.launching
       await sleep(1500)
+      this.showCard = false
+      await sleep(500)
       this.$store.commit('updateAttendance', true)
       this.$router.push(`attendance?code=${this.selectedCourse.code}&group=${this.selectedCourseGroup}&session=${this.selectedCourseSession}`) 
     },
-    logout: function() {
+    logout: async function() {
       this.$store.commit('updateAuthentication', false)
+      this.showCard = false
+      await sleep(200)
       this.$router.push('/') 
     }
   },
-  mounted() {
+  async mounted() {
     this.$store.commit('updateAuthentication', true)
+    await sleep(200)
+    this.showCard = true
   }
 }

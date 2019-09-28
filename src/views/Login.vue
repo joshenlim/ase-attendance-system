@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="card">
+    <div class="card" v-bind:class="{ fadeInCard: showCard }">
       <p class="header">Lab Attendance Registration</p>
       <div class="field-input">
         <p>USERNAME</p>
