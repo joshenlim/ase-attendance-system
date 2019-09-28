@@ -14,12 +14,17 @@ export default new Router({
     {
       path: '/lab-select',
       name: 'lab-select',
-      component: () => import(/* webpackChunkName: "about" */ './views/LabGroupSelection.vue')
+      component: () => import(/* webpackChunkName: "lab-select" */ './views/LabGroupSelection.vue')
     },
     {
       path: '/attendance',
       name: 'attendance',
-      component: () => import(/* webpackChunkName: "play" */ './views/AttendanceStream.vue')
+      component: () => import(/* webpackChunkName: "attendance" */ './views/AttendanceStream.vue')
+    },
+    {
+      path: '/attendance-track',
+      name: 'attendance-track',
+      component: () => import(/* webpackChunkName: "attendance-track" */ './views/AttendanceTrack.vue')
     }
   ]
 })

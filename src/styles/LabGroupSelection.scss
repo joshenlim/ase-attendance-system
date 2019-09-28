@@ -81,14 +81,3 @@
   max-height: 145px;
   visibility: visible;
 }
-
-input[type=text].dropdown {
-  background-image: url('../assets/dropdown.svg');
-  background-repeat: no-repeat;
-  background-position: right;
-  background-size: 15px;
-  cursor: pointer;
-  &:focus {
-    border-bottom: 1px solid rgba(0,0,0,0.2);
-  }
-}

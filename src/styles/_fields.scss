@@ -12,6 +12,7 @@
     margin-bottom: 10px;
     font-size: 0.75em;
     opacity: 0.4;
+    text-align: left;
   }
 }
 
@@ -28,5 +29,16 @@ input[type=password] {
   &:focus {
     outline: none;
     border-bottom: 1px solid rgba(0,0,0,0.8);
+  }
+}
+
+input[type=text].dropdown {
+  background-image: url('../assets/dropdown.svg');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 15px;
+  cursor: pointer;
+  &:focus {
+    border-bottom: 1px solid rgba(0,0,0,0.2);
   }
 }

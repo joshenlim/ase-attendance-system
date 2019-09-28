@@ -5,7 +5,7 @@
       <router-link v-if="attendanceTaking" class="icon-link" to="/login">
         <img src="../assets/face-icon.svg" />
       </router-link>
-      <router-link class="icon-link" to="/login">
+      <router-link class="icon-link" to="/attendance-track">
         <img src="../assets/table-icon.svg" />
       </router-link>
     </div>

@@ -12,7 +12,6 @@ export default {
       }
       this.loggingIn = !this.loggingIn
       await sleep(1500)
-      this.$store.commit('updateAuthentication', true)
       this.$router.push('lab-select') 
     }
   }

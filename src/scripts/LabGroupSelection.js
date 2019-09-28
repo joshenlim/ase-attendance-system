@@ -70,5 +70,8 @@ export default {
       this.$store.commit('updateAuthentication', false)
       this.$router.push('/') 
     }
+  },
+  mounted() {
+    this.$store.commit('updateAuthentication', true)
   }
 }

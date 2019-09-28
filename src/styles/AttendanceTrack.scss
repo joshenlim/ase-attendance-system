@@ -1,0 +1,81 @@
+@import '@/styles/_fields';
+
+::-webkit-scrollbar { 
+  display: none; 
+}
+
+.attendance-track {
+  width: 90%;
+}
+
+.header {
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 1.5em;
+  text-align: left;
+}
+
+.search-fields {
+  display: flex;
+  align-items: center;
+  .field-input {
+    margin-right: 30px;
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}
+
+.attendance-table {
+  max-height: 350px;
+  width: 100%;
+  overflow-y: scroll;
+  border: 1px solid rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  .row {
+    font-weight: 300;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+}
+
+.headers {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.column {
+  width: 25%;
+  padding: 10px 0px;
+  border-right: 1px solid rgba(0,0,0,0.3);
+  &:last-of-type {
+    border-right: none;
+  }
+}
+.id {
+  width: 5%;
+}
+.matric {
+  width: 15%;
+}
+.lab-att {
+  width: 11%;
+}
