@@ -7,7 +7,7 @@ export default {
     return {
       code: this.$route.query.code,
       group: this.$route.query.group,
-      session: this.$route.query.session,
+      session: this.$route.query.session.slice(-1),
       venue: "",
       course: "",
       day: "",
@@ -47,7 +47,6 @@ export default {
     }
   },
   mounted() {
-    // Retrieve Lab Group Details
     this.$http.get(this.$apiUrl + '/groups?name=' + this.group)
       .then((result) => {
         this.course = result.data.name
@@ -55,7 +54,12 @@ export default {
         this.day = result.data.day
         this.startTime = result.data.start_time
         this.endTime = result.data.end_time
-        this.studentList = result.data.students
+        this.studentList = result.data.students.map(student => {
+          return {
+            ...student,
+            attendance: student.attendance[`session_${this.session}`]
+          }
+        })
       })
 
 

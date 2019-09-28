@@ -1,5 +1,9 @@
 @import '@/styles/_card';
 
+::-webkit-scrollbar { 
+  display: none; 
+}
+
 .back-btn {
   text-decoration: none;
   color: #333333;

@@ -18,7 +18,7 @@
         </div>
         <div class="course-detail-line">
           <p class="title">Session:</p>
-          <p class="description">Lab 3</p>
+          <p class="description">Lab {{ session }}</p>
         </div>
         <div class="course-detail-line">
           <p class="title">Timing:</p>
@@ -47,7 +47,7 @@
           <ul class="student-list">
             <li class="student" v-for="student in studentList" v-bind:key="student.seat">
               <div class="name">
-                <input type="checkbox" disabled/>
+                <input type="checkbox" :checked="student.attendance == 1" disabled/>
                 <span>{{ student.name }}</span>
               </div>
               <div>{{ student.seat }}</div>
