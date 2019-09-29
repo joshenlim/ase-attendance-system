@@ -15,6 +15,8 @@ export default {
       endTime: "",
       studentList: [],
 
+      detectionReady: false,
+      detected: "",
       avatarUrl: backgroundUrl,
     }
   },
@@ -69,15 +71,18 @@ export default {
     });
 
     this.$electron.ipcRenderer.on('message-from-worker', (event, data) => {
-      console.log("Message from worker received:", data)
-
+      console.log(data)
       if(typeof data.command === 'undefined') {
         console.error('IPC message is missing command string');
         return;
       }
-
+      if (data.command === 'status') {
+        if (data.payload.status === 'ready') this.detectionReady = true
+      }
       if (data.command === 'face-detect') {
-        // faceapi.draw.drawDetections(overlay, data.payload.detection)
+        console.log(data.payload.identity)
+        if (!this.detectionReady) this.detectionReady = true
+        this.detected = data.payload.identity
       }
     });
 

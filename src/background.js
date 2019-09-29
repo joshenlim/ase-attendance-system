@@ -67,7 +67,7 @@ function createWorker(devPath, prodPath) {
   console.log("Creating Worker...")
 
   workerWin = new BrowserWindow({
-    show: true, // Change to this true to debug detector
+    show: false, // Change to this true to debug detector
     width: 1200,
     height: 600,
     webPreferences: {
@@ -130,11 +130,9 @@ app.on('ready', async () => {
 
   createWindow()
   // Disable this while working on frontend only
-  // createWorker('worker', 'worker.html');
+  createWorker('worker', 'worker.html');
 
-  ipcMain.on('window-message-from-worker', (event, arg) => {
-    // Joshen: Comment this out at the end to clean server logs
-    console.log("Message from worker", arg)
+  ipcMain.on('window-message-from-worker', (event, arg) => { 
     sendWindowMessage(win, 'message-from-worker', arg);
   });
   

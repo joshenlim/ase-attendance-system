@@ -13,11 +13,10 @@ export const loadNet = async() => {
 }
 
 export const detectFace = async(frame, isReady=false) => {
-  // Joshen: To re label everything into matric numbers
-  const labels = ['Joshen', 'James', 'Salleh']
+  const labels = ['U1722911C', 'U1722094J', 'U1720999H']
   const labeledFaceDescriptors = await Promise.all(
     labels.map(async label => {
-      const img = await faceapi.fetchImage(require(`../assets/${label.toLowerCase()}.jpg`))
+      const img = await faceapi.fetchImage(require(`../assets/students/${label}.jpg`))
       const faceDescription = await faceapi
         .detectSingleFace(img, faceapiOptions)
         .withFaceLandmarks()

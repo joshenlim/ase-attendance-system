@@ -27,7 +27,8 @@
       </div>
 
       <div class="cam-container">
-        <video class="video-stream" ref="cam" autoplay muted playsinline></video>
+        <div class="video-loading" v-if="!detectionReady">Initializing Facial Identifier</div>
+        <video class="video-stream" ref="cam" v-bind:class="{ blurVideo: !detectionReady }" autoplay muted playsinline></video>
         <canvas class="video-overlay" ref="overlay" width=400 height=500></canvas>
       </div>
 
@@ -38,6 +39,7 @@
             <div class="thumbnail" :style="{ backgroundImage: `url(${avatarUrl})` }"></div>
             <div class="student-details">
               <p class="no-student">No Student Detected</p>
+              <p>{{ detected }}</p>
             </div>
           </div>
         </div>
