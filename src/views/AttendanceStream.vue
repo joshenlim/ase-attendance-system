@@ -35,13 +35,33 @@
       <div class="column">
         <div class="card fix-card-width">
           <p class="title">Registered Student</p>
-          <div class="detected-student">
+
+          <!-- Empty State -->
+          <div class="detected-student" v-if="detected === ''">
             <div class="thumbnail" :style="{ backgroundImage: `url(${avatarUrl})` }"></div>
             <div class="student-details">
               <p class="no-student">No Student Detected</p>
-              <p>{{ detected }}</p>
             </div>
           </div>
+
+          <!-- Error State -->
+          <div class="detected-student" v-else-if="detected === 'unknown'">
+            <div class="thumbnail" :style="{ backgroundImage: `url(${avatarUrl})` }"></div>
+            <div class="student-details">
+              <p class="no-student">Unknown Student Detected</p>
+            </div>
+          </div>
+
+          <!-- Success State -->
+          <div class="detected-student" v-else>
+            <div class="thumbnail" :style="{ backgroundImage: `url(${avatarUrl})` }"></div>
+            <div class="student-details">
+              <p>{{ detected.matric }}</p>
+              <p>{{ detected.name }}</p>
+              <p><span>Lab Seat: </span>{{ detected.seat }}</p>
+            </div>
+          </div>
+
         </div>
 
         <div class="card fix-card-width participants">

@@ -39,7 +39,7 @@
 }
 
 .participants {
-  max-height: 300px;
+  max-height: 280px;
   overflow-y: scroll;
 }
 
@@ -82,8 +82,8 @@
     align-items: center;
     justify-content: flex-start;
     .thumbnail {
-      width: 60px;
-      height: 80px;
+      width: 80px;
+      height: 100px;
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
@@ -97,8 +97,13 @@
       p {
         margin: 0;
         margin-bottom: 10px;
+        text-align: left;
         &:last-of-type {
           margin-bottom: 0;
+        }
+        span {
+          font-weight: 300;
+          margin-right: 10px;
         }
       }
     }

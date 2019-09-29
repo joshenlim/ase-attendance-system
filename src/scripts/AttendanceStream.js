@@ -71,7 +71,6 @@ export default {
     });
 
     this.$electron.ipcRenderer.on('message-from-worker', (event, data) => {
-      console.log(data)
       if(typeof data.command === 'undefined') {
         console.error('IPC message is missing command string');
         return;
@@ -80,11 +79,23 @@ export default {
         if (data.payload.status === 'ready') this.detectionReady = true
       }
       if (data.command === 'face-detect') {
-        console.log(data.payload.identity)
         if (!this.detectionReady) this.detectionReady = true
-        this.detected = data.payload.identity
+        if (data.payload.identity !== 'unknown') {
+          const studentMatric = data.payload.identity
+          this.$http.get(this.$apiUrl + `/students?matric=${studentMatric}&group=${this.group}`)
+            .then((result) => {
+              this.detected = result.data
+            })
+          this.avatarUrl = require(`../assets/students/${studentMatric}.jpg`)
+        } else {
+          this.detected = data.payload.identity
+          this.avatarUrl = require('../assets/avatar.jpg')
+        }
       }
     });
+
+    // Write a fuction, if this.detected is not null, wait for 5 seconds before defaulting to
+    // empty state again
 
   }
 }
