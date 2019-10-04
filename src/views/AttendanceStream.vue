@@ -27,6 +27,9 @@
       </div>
 
       <div class="cam-container">
+        <div v-bind:class="['notification', {showNotif: showNotif}, notification.status]">
+          {{ notification.message }}
+        </div>
         <div class="video-loading" v-if="!detectionReady">Initializing Facial Identifier</div>
         <video class="video-stream" ref="cam" v-bind:class="{ blurVideo: !detectionReady }" autoplay muted playsinline></video>
         <canvas class="video-overlay" ref="overlay" width=400 height=500></canvas>

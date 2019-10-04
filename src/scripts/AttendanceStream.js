@@ -18,6 +18,11 @@ export default {
       detectionReady: false,
       detected: "",
       avatarUrl: backgroundUrl,
+      showNotif: false,
+      notification: {
+        status: "",
+        message: ""
+      },
     }
   },
   methods: {
@@ -46,10 +51,9 @@ export default {
     selectLabGroup: function() {
       this.$store.commit('updateAttendance', false)
       this.$router.push('/lab-select')
-    }
-  },
-  mounted() {
-    this.$http.get(this.$apiUrl + '/groups?name=' + this.group)
+    },
+    updateStudentList: function() {
+      this.$http.get(this.$apiUrl + '/groups?name=' + this.group)
       .then((result) => {
         this.course = result.data.name
         this.venue = result.data.venue
@@ -63,13 +67,24 @@ export default {
           }
         })
       })
-
-
+    },
+    closeNotification: function() {
+      setTimeout(() => {
+        if (this.showNotif) {
+          this.showNotif = false
+          this.detected = ""
+          this.avatarUrl = require('../assets/avatar.jpg')
+        }
+      }, 3000)
+    }
+  },
+  mounted() {
+    this.updateStudentList()
     this.initCamera(400, 500)
     .then(video => {
       console.log('Camera was initialized', video);
     });
-
+    
     this.$electron.ipcRenderer.on('message-from-worker', (event, data) => {
       if(typeof data.command === 'undefined') {
         console.error('IPC message is missing command string');
@@ -82,14 +97,49 @@ export default {
         if (!this.detectionReady) this.detectionReady = true
         if (data.payload.identity !== 'unknown') {
           const studentMatric = data.payload.identity
+
           this.$http.get(this.$apiUrl + `/students?matric=${studentMatric}&group=${this.group}`)
             .then((result) => {
               this.detected = result.data
             })
           this.avatarUrl = require(`../assets/students/${studentMatric}.jpg`)
+
+          this.$http.post(this.$apiUrl + '/students/updateAttendance', {
+            matric: studentMatric,
+            group: this.group,
+            session: this.session,
+            status: 1
+          })
+            .then((res) => {
+              if (res.data.message === "statusNoChange") {
+                if (!this.showNotif) {
+                  this.showNotif = true;
+                  this.notification = {
+                    status: "warning",
+                    message: "Student Already Registered!"
+                  }
+                  this.closeNotification()
+                }
+              } else {
+                this.updateStudentList()
+                this.showNotif = true;
+                this.notification = {
+                  status: "success",
+                  message: "Successfully Registered!"
+                }
+                this.closeNotification()
+              }
+            })
         } else {
           this.detected = data.payload.identity
           this.avatarUrl = require('../assets/avatar.jpg')
+
+          this.showNotif = true;
+          this.notification = {
+            status: "warning",
+            message: "Unknown Student"
+          }
+          this.closeNotification()
         }
       }
     });

@@ -119,10 +119,42 @@
   margin: 0px 20px;
   position: relative;
 
+  .notification {
+    position: absolute;
+    padding: 10px 20px;
+    opacity: 0;
+    visibility: hidden;
+    bottom: 0px;
+    right: 20px;
+    color: #FFFFFF;
+    z-index: 99;
+    background-color: rgba(42, 182, 246, 0.7);
+    border-radius: 50px;
+    transition: all 0.2s ease;
+  }
+
+  .success {
+    background-color: rgba(102, 187, 105, 0.7);
+  }
+
+  .warning {
+    background-color: rgba(255, 202, 39, 0.7);
+  }
+
+  .error {
+    background-color: rgba(239, 83, 79, 0.7);
+  }
+
+  .showNotif {
+    bottom: 20px;
+    opacity: 1.0;
+    visibility: visible;
+  }
+
   .video-stream {
     width: inherit;
     height: 500px;
-    border-radius: 10px;
+    border-radius: 5px;
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
   }
