@@ -16,6 +16,21 @@
   }
 }
 
+textarea {
+  border: 1px solid rgba(0,0,0,0.2);
+  font-size: 1em;
+  font-weight: 300;
+  margin-top: 5px;
+  padding: 5px;
+  width: 100%;
+  transition: border 0.2s ease;
+  line-height: 1.5em;
+  &:focus {
+    outline: none;
+    border: 1px solid rgba(0,0,0,0.8);
+  }
+}
+
 input[type=text],
 input[type=password] {
   border: none;

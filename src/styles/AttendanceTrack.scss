@@ -1,4 +1,8 @@
 @import '@/styles/_fields';
+@import '@/styles/_button';
+@import '@/styles/_layout';
+@import '@/styles/_modal';
+@import '@/styles/_loader';
 
 ::-webkit-scrollbar { 
   display: none; 
@@ -136,4 +140,59 @@
 .showSearchList {
   max-height: 145px;
   visibility: visible;
+}
+
+.push-notif-btn {
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px solid #333;
+  font-size: 0.9em;
+  transition: opacity 0.2s ease;
+  opacity: 1.0;
+  img {
+    width: 20px;
+    margin-right: 10px;
+  }
+}
+
+.btn-disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.row {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recipient-list {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 0.7em;
+  color: #333333;
+  .recipient {
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 20px;
+    padding: 8px 12px;
+    margin-right: 10px;
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}
+
+.disable-send {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.btn-success {
+  background-color: #66bb6a;
 }

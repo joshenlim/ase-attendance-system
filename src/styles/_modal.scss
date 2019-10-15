@@ -1,0 +1,66 @@
+.modal {
+  background-color: rgba(0,0,0,0.6);
+  z-index: 0;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .window {
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    padding: 20px 40px;
+    width: 500px;
+    position: relative;
+    top: 20px;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .close {
+      width: 15px;
+      cursor: pointer;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+    .title {
+      font-size: 1.3em;
+    }
+    .field-input {
+      width: 100%;
+      margin-bottom: 0px;
+      &:last-of-type {
+        margin-bottom: 20px;
+      }
+    }
+    .button {
+      padding-left: 20px;
+      padding-right: 20px;
+      margin: 0 auto;
+      margin-top: 10px;
+    }
+    .showSpinner {
+      width: 25px;
+      height: 25px;
+      padding: 9px;
+      background-color: #FFFFFF;
+      border: 1px solid rgba(0,0,0,0.2);
+    }
+  }
+}
+
+.modal-open {
+  opacity: 1;
+  visibility: visible;
+  z-index: 99;
+  .window {
+    top: 0px;
+  }
+}

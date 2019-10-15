@@ -31,3 +31,18 @@
     text-decoration: none;
   }
 }
+
+.back-btn {
+  text-decoration: none;
+  color: #333333;
+  opacity: 0.3;
+  position: relative;
+  top: 10px;
+  left: 15px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  &:hover {
+    opacity: 1.0;
+  }
+}

@@ -13,7 +13,7 @@ export const loadNet = async() => {
 }
 
 export const detectFace = async(frame, isReady=false) => {
-  const labels = ['U1722911C', 'U1722094J', 'U1720999H']
+  const labels = ['U1722911C', 'U1722094J', 'U1720999H', 'U1721312J', 'U1721959H']
   const labeledFaceDescriptors = await Promise.all(
     labels.map(async label => {
       const img = await faceapi.fetchImage(require(`../assets/students/${label}.jpg`))
