@@ -1,4 +1,4 @@
-import backgroundUrl from '../assets/avatar.jpg'
+import backgroundUrl from '../assets/empty.png'
 
 export default {
   name: 'attendance-stream',
@@ -17,6 +17,7 @@ export default {
 
       detectionReady: false,
       detected: "",
+      detectionCount: 0,
       avatarUrl: backgroundUrl,
       showNotif: false,
       notification: {
@@ -73,7 +74,7 @@ export default {
         if (this.showNotif) {
           this.showNotif = false
           this.detected = ""
-          this.avatarUrl = require('../assets/avatar.jpg')
+          this.avatarUrl = require('../assets/empty.png')
         }
       }, 3000)
     }
@@ -81,8 +82,8 @@ export default {
   mounted() {
     this.updateStudentList()
     this.initCamera(400, 500)
-    .then(video => {
-      console.log('Camera was initialized', video);
+    .then(() => {
+      console.log('Camera was initialized');
     });
     
     this.$electron.ipcRenderer.on('message-from-worker', (event, data) => {
@@ -98,41 +99,47 @@ export default {
         if (data.payload.identity !== 'unknown') {
           const studentMatric = data.payload.identity
 
-          this.$http.get(this.$apiUrl + `/students?matric=${studentMatric}&group=${this.group}`)
-            .then((result) => {
-              this.detected = result.data
+          if (this.detected.matric == studentMatric && this.detectionCount == 1) {
+            this.avatarUrl = require(`../assets/students/${studentMatric}.jpg`)
+            this.$http.post(this.$apiUrl + '/students/updateAttendance', {
+              matric: studentMatric,
+              group: this.group,
+              session: this.session,
+              status: 1
             })
-          this.avatarUrl = require(`../assets/students/${studentMatric}.jpg`)
-
-          this.$http.post(this.$apiUrl + '/students/updateAttendance', {
-            matric: studentMatric,
-            group: this.group,
-            session: this.session,
-            status: 1
-          })
-            .then((res) => {
-              if (res.data.message === "statusNoChange") {
-                if (!this.showNotif) {
+              .then((res) => {
+                if (res.data.message === "statusNoChange") {
+                  if (!this.showNotif) {
+                    this.detectionCount = 1
+                    this.showNotif = true;
+                    this.notification = {
+                      status: "warning",
+                      message: "Student Already Registered!"
+                    }
+                    this.closeNotification()
+                  }
+                } else {
+                  this.updateStudentList()
+                  this.detectionCount = 1
                   this.showNotif = true;
                   this.notification = {
-                    status: "warning",
-                    message: "Student Already Registered!"
+                    status: "success",
+                    message: "Successfully Registered!"
                   }
                   this.closeNotification()
                 }
-              } else {
-                this.updateStudentList()
-                this.showNotif = true;
-                this.notification = {
-                  status: "success",
-                  message: "Successfully Registered!"
-                }
-                this.closeNotification()
-              }
+              })
+          } else {
+            this.avatarUrl = require(`../assets/students/${studentMatric}.jpg`)
+            this.$http.get(this.$apiUrl + `/students?matric=${studentMatric}&group=${this.group}`)
+            .then((result) => {
+              this.detected = result.data
+              this.detectionCount = 1
             })
+          }
         } else {
           this.detected = data.payload.identity
-          this.avatarUrl = require('../assets/avatar.jpg')
+          this.avatarUrl = require('../assets/empty.png')
 
           this.showNotif = true;
           this.notification = {
@@ -143,9 +150,5 @@ export default {
         }
       }
     });
-
-    // Write a fuction, if this.detected is not null, wait for 5 seconds before defaulting to
-    // empty state again
-
   }
 }

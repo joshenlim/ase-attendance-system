@@ -21,8 +21,10 @@ export default {
       emailSubject: "",
       emailRecipients: [],
       emailMessage: "",
-
       sendStatus: null,
+
+      editAttendance: false,
+      activeEdit: {},
     }
   },
   methods: {
@@ -119,6 +121,38 @@ export default {
             }
           })
       }
+    },
+    toggleEditAttendance: function() {
+      if (this.selectedCourseGroup) {
+        this.editAttendance = !this.editAttendance
+      }
+    },
+    selectStudentAtt: function(student, session) {
+      if (this.activeEdit.student == student.matric && this.activeEdit.session == session) {
+        this.activeEdit = {}
+      } else {
+        this.activeEdit = {
+          student: student.matric,
+          session: session
+        }
+      }
+    },
+    updateStudentAtt: function(student, session, status) {
+      this.$http.post(this.$apiUrl + '/students/updateAttendance', {
+        matric: student.matric,
+        group: this.selectedCourseGroup,
+        session: parseInt(session.split('_')[1]),
+        status: this.attendanceStatus.indexOf(status)
+      })
+        .then((res) => {
+          if (res.data.message === "statusNoChange") {
+            console.log('No Change')
+            this.activeEdit = {}
+          } else {
+            this.updateLabGroupTrack()
+            this.activeEdit = {}
+          }
+        })
     }
   },
   mounted() {

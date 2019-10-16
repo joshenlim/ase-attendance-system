@@ -105,6 +105,14 @@
 }
 .lab-att {
   width: 11%;
+  position: relative;
+  img {
+    width: 12px;
+    position: absolute;
+    right: 8px;
+    top: 18px;
+    cursor: pointer;
+  }
 }
 
 .search-list {
@@ -137,31 +145,42 @@
   }
 }
 
+.att-status-list {
+  top: 42px;
+  left: -1px;
+}
+
 .showSearchList {
   max-height: 145px;
   visibility: visible;
 }
 
-.push-notif-btn {
-  width: auto;
+.other-actions {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-left: 20px;
-  padding-right: 20px;
-  border: 1px solid #333;
-  font-size: 0.9em;
-  transition: opacity 0.2s ease;
-  opacity: 1.0;
-  img {
-    width: 20px;
-    margin-right: 10px;
+  .push-notif-btn {
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 1px solid #333;
+    font-size: 0.9em;
+    transition: opacity 0.2s ease;
+    opacity: 1.0;
+    margin-right: 20px;
+    img {
+      width: 20px;
+      margin-right: 10px;
+    }
+    &:last-of-type {
+      margin-right: 0;
+    }
   }
-}
-
-.btn-disabled {
-  opacity: 0.4;
-  cursor: default;
+  .btn-disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
 }
 
 .row {

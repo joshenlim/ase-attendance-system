@@ -2,9 +2,9 @@
   <div class="header" id="nav">
     <img class="logo" alt="App Logo" src="../assets/logo.png">
     <div v-if="authenticated" class="nav-links">
-      <router-link v-if="attendanceTaking" class="icon-link" to="/login">
+      <!-- <router-link v-if="attendanceTaking" class="icon-link" to="/login">
         <img src="../assets/face-icon.svg" />
-      </router-link>
+      </router-link> -->
       <router-link class="icon-link" to="/attendance-track">
         <img src="../assets/table-icon.svg" />
       </router-link>

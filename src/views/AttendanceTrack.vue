@@ -65,9 +65,17 @@
         </div>
       </div>
 
-      <div class="button push-notif-btn" @click="toggleEmailPopup()" v-bind:class="{ 'btn-disabled': !selectedCourseGroup}">
-        <img src="../assets/email-icon.svg" />
-        <span>Send Email Alert</span>
+      <div class="other-actions">
+        <div class="button push-notif-btn" @click="toggleEditAttendance()" v-bind:class="{ 'btn-disabled': !selectedCourseGroup}">
+          <img src="../assets/edit-icon.svg" />
+          <span v-if="!editAttendance">Edit Attendance</span>
+          <span v-else>Stop Editting</span>
+        </div>
+
+        <div class="button push-notif-btn" @click="toggleEmailPopup()" v-bind:class="{ 'btn-disabled': !selectedCourseGroup}">
+          <img src="../assets/email-icon.svg" />
+          <span>Send Email Alert</span>
+        </div>
       </div>
     </div>
 
@@ -93,6 +101,14 @@
         <div class="column">{{ student.name }}</div>
         <div class="column lab-att" v-for="(status, session) in student.attendance" v-bind:key="session">
           {{ attendanceStatus[status] }}
+          <span v-if="editAttendance" v-on:click="selectStudentAtt(student, session)">
+            <img src="../assets/dropdown.svg" />
+          </span>
+          <ul class="search-list att-status-list" v-bind:class="{ showSearchList: activeEdit.student == student.matric && activeEdit.session == session }">
+            <li v-for="status in attendanceStatus" v-bind:key="status" v-on:click="updateStudentAtt(student, session, status)">
+              {{ status }}
+            </li>
+          </ul>
         </div>
       </li>
     </ul>
@@ -101,9 +117,9 @@
       <p>Lab Group has no students assigned to it</p>
     </div>
 
-    <router-link class="back-btn" to="/lab-select">
+    <a class="back-btn" @click="$router.go(-1)">
       Back
-    </router-link>
+    </a>
   </div>
 </template>
 
