@@ -39,8 +39,8 @@
 
 .attendance-table {
   background-color: #FFFFFF;
-  height: 350px;
-  max-height: 350px;
+  height: calc(100vh - 450px);
+  max-height: calc(100vh - 450px);
   width: 100%;
   overflow-y: scroll;
   border: 1px solid rgba(0,0,0,0.3);
@@ -68,8 +68,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 350px;
-  max-height: 350px;
+  height: calc(100vh - 450px);
+  max-height: calc(100vh - 450px);
   border: 1px solid rgba(0,0,0,0.3);
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -259,7 +259,7 @@
   width: calc(100% - 40px);
   color: #FFFFFF;
   padding: 10px 20px;
-  transition: all 0.2s ease;
+  transition: all 0.4s ease;
 }
 
 .show-notif {
