@@ -1,6 +1,10 @@
 <template>
   <div class="attendance-track">
 
+    <div class="notification-bar" v-bind:class="[{'show-notif': showNotif}, notification.status]">
+      {{ notification.message }}
+    </div>
+
     <div class="modal" v-bind:class="{ 'modal-open': showModal }">
       <div class="window">
         <img class="close" src="../assets/close.svg" @click="toggleEmailPopup()"/>

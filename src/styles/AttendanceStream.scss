@@ -1,5 +1,6 @@
 @import '@/styles/_card';
 @import '@/styles/_button';
+@import '@/styles/_color';
 
 ::-webkit-scrollbar { 
   display: none; 
@@ -117,18 +118,6 @@
     background-color: rgba(42, 182, 246, 0.7);
     border-radius: 50px;
     transition: all 0.2s ease;
-  }
-
-  .success {
-    background-color: rgba(102, 187, 105, 0.7);
-  }
-
-  .warning {
-    background-color: rgba(255, 202, 39, 0.7);
-  }
-
-  .error {
-    background-color: rgba(239, 83, 79, 0.7);
   }
 
   .showNotif {

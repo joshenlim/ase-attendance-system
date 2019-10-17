@@ -25,6 +25,11 @@ export default {
 
       editAttendance: false,
       activeEdit: {},
+      notification: {
+        status: '',
+        message: ''
+      },
+      showNotif: false,
     }
   },
   methods: {
@@ -138,21 +143,40 @@ export default {
       }
     },
     updateStudentAtt: function(student, session, status) {
+      const sessionId = parseInt(session.split('_')[1])
       this.$http.post(this.$apiUrl + '/students/updateAttendance', {
         matric: student.matric,
         group: this.selectedCourseGroup,
-        session: parseInt(session.split('_')[1]),
+        session: sessionId,
         status: this.attendanceStatus.indexOf(status)
       })
         .then((res) => {
           if (res.data.message === "statusNoChange") {
-            console.log('No Change')
             this.activeEdit = {}
+            this.showNotif = true;
+            this.notification = {
+              status: 'warning',
+              message: `No change to ${student.name}'s attendance for ${this.selectedCourseGroup} lab ${sessionId}`
+            }
+            this.closeNotification();
           } else {
             this.updateLabGroupTrack()
             this.activeEdit = {}
+            this.showNotif = true;
+            this.notification = {
+              status: 'success',
+              message: `Successfully updated ${student.name}'s attendance for ${this.selectedCourseGroup} lab ${sessionId}`
+            }
+            this.closeNotification();
           }
         })
+    },
+    closeNotification: function() {
+      setTimeout(() => {
+        if (this.showNotif) {
+          this.showNotif = false
+        }
+      }, 3000)
     }
   },
   mounted() {

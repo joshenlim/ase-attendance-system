@@ -3,6 +3,7 @@
 @import '@/styles/_layout';
 @import '@/styles/_modal';
 @import '@/styles/_loader';
+@import '@/styles/_color';
 
 ::-webkit-scrollbar { 
   display: none; 
@@ -214,4 +215,18 @@
 
 .btn-success {
   background-color: #66bb6a;
+}
+
+.notification-bar {
+  position: absolute;
+  top: -45px;
+  left: 0;
+  width: calc(100% - 40px);
+  color: #FFFFFF;
+  padding: 10px 20px;
+  transition: all 0.2s ease;
+}
+
+.show-notif {
+  top: 0px;
 }
