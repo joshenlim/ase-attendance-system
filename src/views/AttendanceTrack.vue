@@ -86,6 +86,7 @@
     <div class="headers">
       <div class="column id">No.</div>
       <div class="column matric">Matric. No.</div>
+      <div class="column thumbnail">Img</div>
       <div class="column">Students</div>
       <div class="column lab-att">Lab 1</div>
       <div class="column lab-att">Lab 2</div>
@@ -102,11 +103,17 @@
       <li class="row" v-for="(student, index) in studentList" v-bind:key="student.matric">
         <div class="column id">{{ index + 1 }}</div>
         <div class="column matric">{{ student.matric }}</div>
+        <div class="column thumbnail">
+          <div @mouseover="showThumbnailPopup(student.matric)" @mouseleave="closeThumbnailPopup()" class="thumbnail-image" :style="{'background-image': `url(\'${getThumbnail(student.matric)}\')`}"></div>
+          <div class="thumbnail-popup" v-bind:class="{'show-popup': activeThumbnailPopup == student.matric}">
+            <img :src="`${getThumbnail(student.matric)}`" />
+          </div>
+        </div>
         <div class="column">{{ student.name }}</div>
         <div class="column lab-att" v-for="(status, session) in student.attendance" v-bind:key="session">
           {{ attendanceStatus[status] }}
           <span v-if="editAttendance" v-on:click="selectStudentAtt(student, session)">
-            <img src="../assets/dropdown.svg" />
+            <img src="@/assets/dropdown.svg" />
           </span>
           <ul class="search-list att-status-list" v-bind:class="{ showSearchList: activeEdit.student == student.matric && activeEdit.session == session }">
             <li v-for="status in attendanceStatus" v-bind:key="status" v-on:click="updateStudentAtt(student, session, status)">

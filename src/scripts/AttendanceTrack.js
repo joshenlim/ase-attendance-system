@@ -30,9 +30,24 @@ export default {
         message: ''
       },
       showNotif: false,
+
+      activeThumbnailPopup: ""
     }
   },
   methods: {
+    getThumbnail: function(matric) {
+      try {
+        return require(`../assets/students/${matric}.jpg`)
+      } catch {
+        return require(`../assets/empty.png`)
+      }
+    },
+    showThumbnailPopup: function(matric) {
+      this.activeThumbnailPopup = matric
+    },
+    closeThumbnailPopup: function() {
+      this.activeThumbnailPopup = ""
+    },
     toggleSearch: function() {
       this.showSearch = true
       this.searchCourseCode()
