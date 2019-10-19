@@ -37,7 +37,7 @@ function createWindow () {
   win = new BrowserWindow({
     width: 1200,
     height: 800,
-    // fullscreen: true,
+    fullscreen: true,
     // frame: false,
     // autoHideMenuBar: true,
     // kiosk: true,
@@ -51,7 +51,7 @@ function createWindow () {
     // Load the url of the dev server if in development mode
     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
     // Uncomment below to open dev tools for debugging
-    if (!process.env.IS_TEST) win.webContents.openDevTools()
+    // if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
     createProtocol('app')
     // Load the index.html when not in development

@@ -21,11 +21,33 @@ export default {
       emailSubject: "",
       emailRecipients: [],
       emailMessage: "",
-
       sendStatus: null,
+
+      editAttendance: false,
+      activeEdit: {},
+      notification: {
+        status: '',
+        message: ''
+      },
+      showNotif: false,
+
+      activeThumbnailPopup: ""
     }
   },
   methods: {
+    getThumbnail: function(matric) {
+      try {
+        return require(`../assets/students/${matric}.jpg`)
+      } catch {
+        return require(`../assets/empty.png`)
+      }
+    },
+    showThumbnailPopup: function(matric) {
+      this.activeThumbnailPopup = matric
+    },
+    closeThumbnailPopup: function() {
+      this.activeThumbnailPopup = ""
+    },
     toggleSearch: function() {
       this.showSearch = true
       this.searchCourseCode()
@@ -119,6 +141,57 @@ export default {
             }
           })
       }
+    },
+    toggleEditAttendance: function() {
+      if (this.selectedCourseGroup) {
+        this.editAttendance = !this.editAttendance
+      }
+    },
+    selectStudentAtt: function(student, session) {
+      if (this.activeEdit.student == student.matric && this.activeEdit.session == session) {
+        this.activeEdit = {}
+      } else {
+        this.activeEdit = {
+          student: student.matric,
+          session: session
+        }
+      }
+    },
+    updateStudentAtt: function(student, session, status) {
+      const sessionId = parseInt(session.split('_')[1])
+      this.$http.post(this.$apiUrl + '/students/updateAttendance', {
+        matric: student.matric,
+        group: this.selectedCourseGroup,
+        session: sessionId,
+        status: this.attendanceStatus.indexOf(status)
+      })
+        .then((res) => {
+          if (res.data.message === "statusNoChange") {
+            this.activeEdit = {}
+            this.showNotif = true;
+            this.notification = {
+              status: 'warning',
+              message: `No change to ${student.name}'s attendance for ${this.selectedCourseGroup} lab ${sessionId}`
+            }
+            this.closeNotification();
+          } else {
+            this.updateLabGroupTrack()
+            this.activeEdit = {}
+            this.showNotif = true;
+            this.notification = {
+              status: 'success',
+              message: `Successfully updated ${student.name}'s attendance for ${this.selectedCourseGroup} lab ${sessionId}`
+            }
+            this.closeNotification();
+          }
+        })
+    },
+    closeNotification: function() {
+      setTimeout(() => {
+        if (this.showNotif) {
+          this.showNotif = false
+        }
+      }, 3000)
     }
   },
   mounted() {

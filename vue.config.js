@@ -25,7 +25,7 @@ module.exports = {
         productName: "Attendance System",
         appId: "com.acme.attendanceSystem",
         mac: {
-          icon: 'src/assets/app.ico'
+          icon: 'src/assets/fiar-logo.png'
         },
         win: {
           icon: 'src/assets/app.ico',
