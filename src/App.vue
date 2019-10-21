@@ -1,20 +1,52 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/attendance">Attendance</router-link> |
+    <Header />
+    <div class="content">
+      <router-view/>
     </div>
-    <router-view/>
+    <p class="watermark">Powered by the FI-AR System</p>
   </div>
 </template>
 
-<style lang="scss">
+<script>
+import Header from '@/components/Header.vue'
+export default {
+  name: 'app',
+  components: {
+    Header
+  }
+}
+</script>
 
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap');
+<style lang="scss">
+@import '@/styles/_type';
 
 body {
   margin: 0;
+  height: 100vh;
+  width: 100vw;
+  background-image: url('assets/background.png');
+  background-position: 0% 105%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  color: #333333;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 210px);
+}
+
+.watermark {
+  font-size: 0.8em;
+  font-weight: 300;
+  color: rgba(0,0,0,0.8);
+  position: absolute;
+  width: 200px;
+  bottom: 20px;
+  left: calc(50% - 100px);
 }
 
 #app {

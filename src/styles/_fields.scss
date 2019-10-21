@@ -1,0 +1,59 @@
+::placeholder {
+  color: rgba(0,0,0,0.2);
+}
+
+.field-input {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0px;
+  p {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 0.75em;
+    opacity: 0.4;
+    text-align: left;
+  }
+}
+
+textarea {
+  border: 1px solid rgba(0,0,0,0.2);
+  font-size: 1em;
+  font-weight: 300;
+  margin-top: 5px;
+  padding: 5px;
+  width: 100%;
+  transition: border 0.2s ease;
+  line-height: 1.5em;
+  &:focus {
+    outline: none;
+    border: 1px solid rgba(0,0,0,0.8);
+  }
+}
+
+input[type=text],
+input[type=password] {
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  font-size: 1em;
+  font-weight: 300;
+  margin-top: 5px;
+  padding-bottom: 5px;
+  width: 100%;
+  transition: border-bottom 0.2s ease;
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid rgba(0,0,0,0.8);
+  }
+}
+
+input[type=text].dropdown {
+  background-image: url('../assets/dropdown.svg');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 15px;
+  cursor: pointer;
+  &:focus {
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+  }
+}

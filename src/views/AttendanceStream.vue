@@ -1,38 +1,92 @@
 <template>
-  <div class="page page-play">
+  <div class="attendance">
+    <h1 class="header">Lab Attendance Registration</h1>
+    <div class="container">
 
-    <div class="overlay overlay-game">
-      <h1>{{ title }}</h1>
+      <div class="card fix-card-width">
+        <div class="course-detail-line">
+          <p class="title">Course:</p>
+          <p class="description">{{ code }} - {{ course }}</p>
+        </div>
+        <div class="course-detail-line">
+          <p class="title">Venue:</p>
+          <p class="description">{{ venue }}</p>
+        </div>
+        <div class="course-detail-line">
+          <p class="title">Group:</p>
+          <p class="description">{{ group }}</p>
+        </div>
+        <div class="course-detail-line">
+          <p class="title">Session:</p>
+          <p class="description">Lab {{ session }}</p>
+        </div>
+        <div class="course-detail-line">
+          <p class="title">Timing:</p>
+          <p class="description">{{ day }}; {{ startTime }} - {{ endTime }}</p>
+        </div>
+      </div>
+
       <div class="cam-container">
-        <video class="video-stream" ref="cam" autoplay muted playsinline></video>
+        <div v-bind:class="['notification', {showNotif: showNotif}, notification.status]">
+          {{ notification.message }}
+        </div>
+        <div class="video-loading" v-if="!detectionReady">Initializing Facial Identifier</div>
+        <video class="video-stream" ref="cam" v-bind:class="{ blurVideo: !detectionReady }" autoplay muted playsinline></video>
         <canvas class="video-overlay" ref="overlay" width=400 height=500></canvas>
       </div>
+
+      <div class="column">
+        <div class="card fix-card-width">
+          <p class="title">Registered Student</p>
+
+          <!-- Empty State -->
+          <div class="detected-student" v-if="detected === ''">
+            <div class="thumbnail" :style="{ backgroundImage: `url(${avatarUrl})` }"></div>
+            <div class="student-details">
+              <p class="no-student">No Student Detected</p>
+            </div>
+          </div>
+
+          <!-- Error State -->
+          <div class="detected-student" v-else-if="detected === 'unknown'">
+            <div class="thumbnail" :style="{ backgroundImage: `url(${avatarUrl})` }"></div>
+            <div class="student-details">
+              <p class="no-student">Unknown Student Detected</p>
+            </div>
+          </div>
+
+          <!-- Success State -->
+          <div class="detected-student" v-else>
+            <div class="thumbnail" :style="{ backgroundImage: `url(${avatarUrl})` }"></div>
+            <div class="student-details">
+              <p>{{ detected.matric }}</p>
+              <p>{{ detected.name }}</p>
+              <p><span>Lab Seat: </span>{{ detected.seat }}</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="card fix-card-width participants">
+          <p class="title">Participants ({{ studentList.length }})</p>
+          <ul class="student-list">
+            <li class="student" v-for="student in studentList" v-bind:key="student.seat">
+              <div class="name">
+                <input type="checkbox" :checked="student.attendance == 1" disabled/>
+                <span>{{ student.name }}</span>
+              </div>
+              <div>{{ student.seat }}</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
     </div>
-
-    <!-- <div :class="['overlay', 'overlay-finished', { 'overlay-visible': showFinished }]">
-      <div class="gameover">
-        Game over!
-      </div>
-      <div class="result">
-        You lasted: {{finalTime}}
-      </div>
-      <div class="buttons">
-        <button class="btn btn-start">
-          Make an angry face to try again! 😠😠😠
-        </button>
-      </div>
-    </div> -->
-
-    <!-- <div :class="['overlay', 'overlay-laugh', { 'overlay-visible': showLaugh }]">
-      <div class="smiley">😠</div>
-    </div> -->
-
-    <!-- <div :class="['overlay', 'overlay-countdown', { 'overlay-visible': showCountdown }]">
-      <Countdown ref="countdown" initialNumber="3" />
-    </div> -->
+    
+    <a class="back-btn" v-on:click="selectLabGroup">Back</a>
 
   </div>
 </template>
 
 <script src="../scripts/AttendanceStream.js"></script>
-<style src="../styles/AttendanceStream.scss" lang="scss"></style>
+<style src="../styles/AttendanceStream.scss" scoped lang="scss"></style>

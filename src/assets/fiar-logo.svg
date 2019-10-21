@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="241px" height="293px" viewBox="0 0 241 293" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>Group 5</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-403.000000, -466.000000)">
+            <g id="Group-5" transform="translate(399.078444, 431.267842)">
+                <g id="Group-3">
+                    <polygon id="Rectangle" fill="#9AC9F0" points="4 103.982026 124 177.239821 124 327.239821 4 253.982026"></polygon>
+                    <polygon id="Rectangle" fill="#BADEFB" transform="translate(122.978108, 106.075567) rotate(-61.000000) translate(-122.978108, -106.075567) " points="67.1274295 1 185.178586 72.2612564 183.044428 211.151135 60.7776306 141.150562"></polygon>
+                    <polygon id="Rectangle" fill="#D2EAFD" transform="translate(184.000000, 215.610923) scale(-1, 1) translate(-184.000000, -215.610923) " points="124 103.982026 244 177.239821 244 327.239821 124 253.982026"></polygon>
+                </g>
+                <g id="Group-3" transform="translate(122.921556, 190.232158) rotate(180.000000) translate(-122.921556, -190.232158) translate(22.921556, 56.732158)">
+                    <polygon id="Rectangle" fill="#9AC9F0" points="3.25203252 84.5382323 100.813008 144.097415 100.813008 266.048635 3.25203252 206.489452"></polygon>
+                    <polygon id="Rectangle" fill="#BADEFB" transform="translate(99.982202, 86.240299) rotate(-61.000000) translate(-99.982202, -86.240299) " points="54.5751459 0.81300813 150.551696 58.7489889 148.816609 171.667589 49.4127078 114.756555"></polygon>
+                    <polygon id="Rectangle" fill="#D2EAFD" transform="translate(149.593496, 175.293433) scale(-1, 1) translate(-149.593496, -175.293433) " points="100.813008 84.5382323 198.373984 144.097415 198.373984 266.048635 100.813008 206.489452"></polygon>
+                </g>
+                <g id="Group-2" transform="translate(72.921556, 129.732158)">
+                    <path d="M50.5,110 C78.1142375,110 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.8857625,110 50.5,110 Z" id="Oval" stroke="#6EBBF7" stroke-width="10" fill="#FFFFFF"></path>
+                    <ellipse id="Oval" fill-opacity="0.65" fill="#2196F3" cx="33.75" cy="58" rx="6.25" ry="8.33333333"></ellipse>
+                    <ellipse id="Oval" fill="#6EBBF7" cx="67.0833333" cy="58" rx="6.25" ry="8.33333333"></ellipse>
+                    <path d="M40,83 C41.875,87.4444444 45.2604167,89.6666667 50.15625,89.6666667 C55.0520833,89.6666667 58.6111111,87.4444444 60.8333333,83" id="Line-7" stroke="#6EBBF7" stroke-width="8" stroke-linecap="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

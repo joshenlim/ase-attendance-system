@@ -1,0 +1,41 @@
+@import '@/styles/_card';
+@import '@/styles/_fields';
+@import '@/styles/_button';
+@import '@/styles/_loader';
+
+h1 {
+  margin-top: -50px;
+  font-weight: 500;
+  margin-bottom: 50px;
+}
+
+.card {
+  text-align: left;
+  width: 350px;
+  margin: 0 auto;
+  border-radius: 0px;
+  box-shadow: 0px 2px 20px rgba(0,0,0,0.15);
+  opacity: 0.0;
+  position: relative;
+  top: 20px;
+  transition: all 0.5s ease;
+}
+
+.button {
+  margin: 0 auto;
+  margin-top: 25px;
+  width: 100px;
+}
+
+.showSpinner {
+  width: 25px;
+  height: 25px;
+  padding: 9px;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+.fadeInCard {
+  top: 0;
+  opacity: 1.0;
+}

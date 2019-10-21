@@ -35,9 +35,9 @@ protocol.registerSchemesAsPrivileged([{
 
 function createWindow () {
   win = new BrowserWindow({
-    width: 1024,
-    height: 790,
-    // fullscreen: true,
+    width: 1200,
+    height: 800,
+    fullscreen: true,
     // frame: false,
     // autoHideMenuBar: true,
     // kiosk: true,
@@ -50,7 +50,8 @@ function createWindow () {
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-    if (!process.env.IS_TEST) win.webContents.openDevTools()
+    // Uncomment below to open dev tools for debugging
+    // if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
     createProtocol('app')
     // Load the index.html when not in development
@@ -66,7 +67,7 @@ function createWorker(devPath, prodPath) {
   console.log("Creating Worker...")
 
   workerWin = new BrowserWindow({
-    show: true,
+    show: false, // Change to this true to debug detector
     width: 1200,
     height: 600,
     webPreferences: {
@@ -128,10 +129,10 @@ app.on('ready', async () => {
   }
 
   createWindow()
+  // Disable this while working on frontend only
   createWorker('worker', 'worker.html');
 
-  ipcMain.on('window-message-from-worker', (event, arg) => {
-    console.log("Message from worker", arg)
+  ipcMain.on('window-message-from-worker', (event, arg) => { 
     sendWindowMessage(win, 'message-from-worker', arg);
   });
   

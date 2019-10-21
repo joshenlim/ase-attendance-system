@@ -1,26 +1,29 @@
-// import SimpleTimer from '@/components/SimpleTimer.vue';
-// import Utils from '../lib/Utils';
+import backgroundUrl from '../assets/empty.png'
 
 export default {
   name: 'attendance-stream',
   components: { },
   data() {
     return {
-      /*
-        0: countdown
-        1: running
-        2: paused
-        3: gameover
-      */
-      title: 'Lab Attendance Registration',
-      gameState: 0,
+      code: this.$route.query.code,
+      group: this.$route.query.group,
+      session: this.$route.query.session.slice(-1),
+      venue: "",
+      course: "",
+      day: "",
+      startTime: "",
+      endTime: "",
+      studentList: [],
 
-      showFinished: false,
-      showLaugh: false,
-
-      currentRound: 0,
-      maxStrikes: 3,
-      finalTime: '00:00.00'
+      detectionReady: false,
+      detected: "",
+      detectionCount: 0,
+      avatarUrl: backgroundUrl,
+      showNotif: false,
+      notification: {
+        status: "",
+        message: ""
+      },
     }
   },
   methods: {
@@ -46,125 +49,106 @@ export default {
         };
       });
     },
-
-    launchRecognizer: function() {
-      // set game state
-      this.gameState = 0; // countdown
-
-      // reset layers
-      this.showLaugh = false;
-      this.showFinished = false;
-
-      // reset round counter
-      this.currentRound = 0;
-
-      // reset stopwatch
-      // this.$refs['stopwatch'].stop();
-      // this.$refs['stopwatch'].currentTime = 0;
+    selectLabGroup: function() {
+      this.$store.commit('updateAttendance', false)
+      this.$router.push('/lab-select')
     },
-
-    startRound: function() {
-
-      this.currentRound++;
-      console.log('Starting new round', this.currentRound);
-
-      // running!
-      this.gameState = 1;
-
-      // reset game
-      this.showLaugh = false;
-
-      // start the funny video
-      let startTime = Math.floor(Math.random() * 400);
-      this.$refs['vid'].currentTime = startTime;
-      this.$refs['vid'].play();
-
-      // start the timer
-      this.$refs['stopwatch'].start();
+    updateStudentList: function() {
+      this.$http.get(this.$apiUrl + '/groups?name=' + this.group)
+      .then((result) => {
+        this.course = result.data.name
+        this.venue = result.data.venue
+        this.day = result.data.day
+        this.startTime = result.data.start_time
+        this.endTime = result.data.end_time
+        this.studentList = result.data.students.map(student => {
+          return {
+            ...student,
+            attendance: student.attendance[`session_${this.session}`]
+          }
+        })
+      })
     },
-
-    onLaugh: function() {
-
-      if(this.gameState != 1) {
-        return;
-      }
-
-      // pause game
-      this.gameState = 2;
-
-      // pause timer
-      this.$refs['stopwatch'].stop();
-
-      // stop video
-      this.$refs['vid'].pause();
-
-      // play explosion sound
-      this.$sounds['explosion'].play();
-
-      // show laugh
-      this.showLaugh = true;
-
-      // continue after 4 seconds
+    closeNotification: function() {
       setTimeout(() => {
-
-        // check game status
-        if(this.currentRound == this.maxStrikes) {
-
-          // game over
-          this.gameState = 3;
-          this.finalTime = 0;
-          this.showLaugh = false;
-          this.showFinished = true;
-
-        } else {
-
-          // next round
-          this.startRound();
+        if (this.showNotif) {
+          this.showNotif = false
+          this.detected = ""
+          this.avatarUrl = require('../assets/empty.png')
         }
-
-      }, 4000);
-    },
-
-    onAngry: function() {
-
-      if(this.gameState != 3) {
-        return;
-      }
-
-      // start new game
-      this.launchRecognizer();
-    },
+      }, 3000)
+    }
   },
-
   mounted() {
+    this.updateStudentList()
     this.initCamera(400, 500)
-    .then(video => {
-      console.log('Camera was initialized', video);
-      this.launchRecognizer();
+    .then(() => {
+      console.log('Camera was initialized');
     });
-
-    // listen to messages
+    
     this.$electron.ipcRenderer.on('message-from-worker', (event, data) => {
-      console.log("Message from worker received:", data)
-
       if(typeof data.command === 'undefined') {
         console.error('IPC message is missing command string');
         return;
       }
+      if (data.command === 'status') {
+        if (data.payload.status === 'ready') this.detectionReady = true
+      }
+      if (data.command === 'face-detect') {
+        if (!this.detectionReady) this.detectionReady = true
+        if (data.payload.identity !== 'unknown') {
+          const studentMatric = data.payload.identity
 
-      if(data.command == 'expression') {
-        if(data.payload.type == 'happy') {
-          this.onLaugh();
-          return;
-        }
+          if (this.detected.matric == studentMatric && this.detectionCount == 1) {
+            this.avatarUrl = require(`../assets/students/${studentMatric}.jpg`)
+            this.$http.post(this.$apiUrl + '/students/updateAttendance', {
+              matric: studentMatric,
+              group: this.group,
+              session: this.session,
+              status: 1
+            })
+              .then((res) => {
+                if (res.data.message === "statusNoChange") {
+                  if (!this.showNotif) {
+                    this.detectionCount = 1
+                    this.showNotif = true;
+                    this.notification = {
+                      status: "warning",
+                      message: "Student Already Registered!"
+                    }
+                    this.closeNotification()
+                  }
+                } else {
+                  this.updateStudentList()
+                  this.detectionCount = 1
+                  this.showNotif = true;
+                  this.notification = {
+                    status: "success",
+                    message: "Successfully Registered!"
+                  }
+                  this.closeNotification()
+                }
+              })
+          } else {
+            this.avatarUrl = require(`../assets/students/${studentMatric}.jpg`)
+            this.$http.get(this.$apiUrl + `/students?matric=${studentMatric}&group=${this.group}`)
+            .then((result) => {
+              this.detected = result.data
+              this.detectionCount = 1
+            })
+          }
+        } else {
+          this.detected = data.payload.identity
+          this.avatarUrl = require('../assets/empty.png')
 
-        if(data.payload.type == 'angry') {
-          this.onAngry();
-          return;
+          this.showNotif = true;
+          this.notification = {
+            status: "warning",
+            message: "Unknown Student"
+          }
+          this.closeNotification()
         }
       }
-
     });
-
   }
 }
